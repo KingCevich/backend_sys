@@ -1,4 +1,17 @@
 # ============================================================================
+# REQUERIMIENTOS - Archivo de dependencias para todos los microservicios
+# ============================================================================
+# crear entorno virtual:
+# python -m venv sys_venv (o cualquier nombre idk)
+
+# activar entorno virtual:
+# .venv\Scripts\activate.bat
+
+# instalar dependencias (entorno general para todos los servicios):
+# pip install -r requirements.txt o python -m pip install -r requirements.txt
+
+
+# ============================================================================
 # DEPENDENCIAS COMPARTIDAS - TODOS LOS MICROSERVICIOS
 # ============================================================================
 
