@@ -1,0 +1,142 @@
+# ============================================================================
+# DEPENDENCIAS COMPARTIDAS - TODOS LOS MICROSERVICIOS
+# ============================================================================
+
+# Framework principal de todos los servicios backend
+Django==6.0.4
+djangorestframework==3.17.1
+djangorestframework-simplejwt==5.5.1
+
+# CORS para comunicación entre servicios y frontend
+django-cors-headers==4.9.0
+
+# Base de datos - PostgreSQL para producción
+psycopg2-binary==2.9.9
+
+# ============================================================================
+# HTTP CLIENT - Para comunicación entre microservicios
+# ============================================================================
+# Utilizado en: auth_serv, mascotas_serv, bff_serv
+httpx==0.24.1
+
+# ============================================================================
+# TESTING - Para ejecución de pruebas unitarias
+# ============================================================================
+# Utilizado en: ALL (usuarios_serv, auth_serv, mascotas_serv, bff_serv)
+pytest==7.4.3
+pytest-django==4.7.0
+
+# ============================================================================
+# FUTURO - Pueden ser utilizadas en nuevos servicios o características
+# ============================================================================
+# Fastapi==0.135.3  # Opcional para APIs alternativas
+
+
+
+
+# ============================================================================
+# USUARIOS_SERV - Servicio de Gestión de Usuarios, Perfiles y Preferencias
+# ============================================================================
+# Este servicio maneja toda la información de usuarios del sistema
+# Puerto: 8000
+
+# Framework Django y REST
+Django==6.0.4
+djangorestframework==3.17.1
+djangorestframework-simplejwt==5.5.1
+
+# CORS para comunicación con otros servicios y frontend
+django-cors-headers==4.9.0
+
+# Base de datos
+psycopg2-binary==2.9.9
+
+# Testing
+pytest==7.4.3
+pytest-django==4.7.0
+
+
+
+# ============================================================================
+# AUTH_SERV - Servicio de Autenticación y Validación de Tokens JWT
+# ============================================================================
+# Este servicio maneja login, tokens JWT y validación de credenciales
+# Puerto: 8001
+# Endpoints: POST /api/auth/login-token/, POST /api/auth/validate-token/
+
+# Framework Django y REST
+Django==6.0.4
+djangorestframework==3.17.1
+djangorestframework-simplejwt==5.5.1
+
+# CORS para comunicación con otros servicios y frontend
+django-cors-headers==4.9.0
+
+# HTTP Client para comunicación con usuarios_serv
+httpx==0.24.1
+
+# Base de datos
+psycopg2-binary==2.9.9
+
+# Testing
+pytest==7.4.3
+pytest-django==4.7.0
+
+
+
+
+# ============================================================================
+# MASCOTAS_SERV - Servicio de Reportes y Contactos de Mascotas
+# ============================================================================
+# Este servicio maneja reportes de mascotas perdidas/encontradas y contactos
+# Puerto: 8002
+# Endpoints: /api/reportes/, /api/contactos/
+# Requiere validación de tokens JWT y role Admin para modificaciones
+
+# Framework Django y REST
+Django==6.0.4
+djangorestframework==3.17.1
+djangorestframework-simplejwt==5.5.1
+
+# CORS para comunicación con otros servicios y frontend
+django-cors-headers==4.9.0
+
+# HTTP Client para validación de tokens con auth_serv
+httpx==0.24.1
+
+# Base de datos
+psycopg2-binary==2.9.9
+
+# Testing
+pytest==7.4.3
+pytest-django==4.7.0
+
+
+# ============================================================================
+# BFF_SERV - Backend For Frontend (Capa Proxy/Agregador)
+# ============================================================================
+# Este servicio es el punto de entrada único para el frontend
+# Proxifica solicitudes a todos los microservicios backend
+# Puerto: 8003
+# Servicios que proxifica:
+#   - auth_serv (puerto 8001) - login y refresh
+#   - usuarios_serv (puerto 8000) - usuarios, perfiles, preferencias
+#   - mascotas_serv (puerto 8002) - reportes y contactos
+
+# Framework Django y REST
+Django==6.0.4
+djangorestframework==3.17.1
+djangorestframework-simplejwt==5.5.1
+
+# CORS para comunicación con el frontend
+django-cors-headers==4.9.0
+
+# HTTP Client CRÍTICO para proxificar requests a todos los backend
+httpx==0.24.1
+
+# Base de datos (mínima, principalmente para logs/sessiones)
+psycopg2-binary==2.9.9
+
+# Testing
+pytest==7.4.3
+pytest-django==4.7.0
