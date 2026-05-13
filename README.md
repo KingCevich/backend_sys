@@ -8,7 +8,7 @@ Gestión de mascotas perdidas y encontradas, construida con arquitectura de micr
 - Frontend: https://github.com/ToniC-3PO/frontend_sys.git
 - Mascotas: https://github.com/KingCevich/Mascotas_SYS.git
 - Usuarios: https://github.com/KingCevich/Usuarios_SYS.git
-- Auth: https://github.com/KingCevich/Usuarios_SYS.git
+- Auth: https://github.com/KingCevich/Auth_SYS
 - BFF: https://github.com/KingCevich/BFF_SYS.git
 
 ## Arquitectura
