@@ -3,6 +3,13 @@
 Plataforma de gestión de mascotas perdidas y encontradas, construida con arquitectura de **microservicios** en Django REST Framework. Permite a usuarios reportar mascotas perdidas o encontradas, gestionar contactos y administrar perfiles de entidades veterinarias.
 
 ---
+## Repositorios vinculados
+
+- Frontend: https://github.com/ToniC-3PO/frontend_sys.git
+- Mascotas: https://github.com/KingCevich/Mascotas_SYS.git
+- Usuarios: https://github.com/KingCevich/Usuarios_SYS.git
+- Auth: https://github.com/KingCevich/Usuarios_SYS.git
+- BFF: https://github.com/KingCevich/BFF_SYS.git
 
 ## Arquitectura
 
@@ -114,11 +121,3 @@ runtest.bat   # Windows
 ```
 
 ---
-
-## Repositorios vinculados
-
-- Frontend: https://github.com/ToniC-3PO/frontend_sys.git
-- Mascotas: https://github.com/KingCevich/Mascotas_SYS.git
-- Usuarios: https://github.com/KingCevich/Usuarios_SYS.git
-- Auth: https://github.com/KingCevich/Usuarios_SYS.git
-- BFF: https://github.com/KingCevich/BFF_SYS.git
