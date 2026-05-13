@@ -21,7 +21,7 @@ Frontend
             └── mascotas_serv (puerto 8002) → Reportes y contactos
 ```
 
-El frontend no habla directamente con los microservicios — todo pasa por el **BFF** como punto de entrada único.
+El frontend no habla directamente con los microservicios — todo pasa por el **BFF** como punto de entrada 
 
 ---
 
