@@ -1,6 +1,6 @@
 # 🐾 SanosYSalvos
 
-Plataforma de gestión de mascotas perdidas y encontradas, construida con arquitectura de **microservicios** en Django REST Framework. Permite a usuarios reportar mascotas perdidas o encontradas, gestionar contactos y administrar perfiles de entidades veterinarias.
+Gestión de mascotas perdidas y encontradas, construida con arquitectura de microservicios en Django REST Framework. Permite a usuarios reportar mascotas perdidas o encontradas, gestionar contactos y administrar perfiles de entidades.
 
 ---
 ## Repositorios vinculados
@@ -21,7 +21,7 @@ Frontend
             └── mascotas_serv (puerto 8002) → Reportes y contactos
 ```
 
-El frontend nunca habla directamente con los microservicios — todo pasa por el **BFF** como punto de entrada único.
+El frontend no habla directamente con los microservicios — todo pasa por el **BFF** como punto de entrada único.
 
 ---
 
