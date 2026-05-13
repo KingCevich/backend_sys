@@ -24,7 +24,7 @@ djangorestframework-simplejwt==5.5.1
 django-cors-headers==4.9.0
 
 # Base de datos - PostgreSQL para producción
-psycopg2-binary==2.9.9
+psycopg2-binary==2.9.12
 
 # ============================================================================
 # HTTP CLIENT - Para comunicación entre microservicios
@@ -62,7 +62,7 @@ djangorestframework-simplejwt==5.5.1
 django-cors-headers==4.9.0
 
 # Base de datos
-psycopg2-binary==2.9.9
+psycopg2-binary==2.9.12
 
 # Testing
 pytest==7.4.3
@@ -89,7 +89,7 @@ django-cors-headers==4.9.0
 httpx==0.24.1
 
 # Base de datos
-psycopg2-binary==2.9.9
+psycopg2-binary==2.9.12
 
 # Testing
 pytest==7.4.3
@@ -118,7 +118,7 @@ django-cors-headers==4.9.0
 httpx==0.24.1
 
 # Base de datos
-psycopg2-binary==2.9.9
+psycopg2-binary==2.9.12
 
 # Testing
 pytest==7.4.3
@@ -148,7 +148,7 @@ django-cors-headers==4.9.0
 httpx==0.24.1
 
 # Base de datos (mínima, principalmente para logs/sessiones)
-psycopg2-binary==2.9.9
+psycopg2-binary==2.9.12
 
 # Testing
 pytest==7.4.3
