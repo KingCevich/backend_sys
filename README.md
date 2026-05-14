@@ -1,4 +1,8 @@
-# 🐾 SanosYSalvos
+# FULLSTACK 3
+<img width="320" height="190" alt="logo" src="https://github.com/user-attachments/assets/1430ebc1-eb10-4000-9bb7-2ce440c52011" />
+<img width="320" height="190" alt="logo-bw" src="https://github.com/user-attachments/assets/e80c6d28-82bf-4a66-bf6f-449c7aff98dc" />
+
+# 🐾 SanosYSalvos - Backend
 
 Gestión de mascotas perdidas y encontradas, construida con arquitectura de microservicios en Django REST Framework. Permite a usuarios reportar mascotas perdidas o encontradas, gestionar contactos y administrar perfiles de entidades.
 
