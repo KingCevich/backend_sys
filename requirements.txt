@@ -125,7 +125,6 @@ pytest==7.4.3
 pytest-django==4.7.0
 
 
-# ============================================================================
 # BFF_SERV - Backend For Frontend (Capa Proxy/Agregador)
 # ============================================================================
 # Este servicio es el punto de entrada único para el frontend
@@ -153,3 +152,48 @@ psycopg2-binary==2.9.12
 # Testing
 pytest==7.4.3
 pytest-django==4.7.0
+
+
+# ============================================================================
+# NOTIFICACIONES_SERV - Servicio de Notificaciones Asincrónicas
+# ============================================================================
+# Este servicio maneja notificaciones por correo, SMS y push
+# Utiliza Celery para tareas asincrónicas + Redis como broker
+# Puerto: 8004
+
+# Framework Django y REST
+Django==6.0.4
+djangorestframework==3.17.1
+djangorestframework-simplejwt==5.5.1
+
+# CORS para comunicación con otros servicios y frontend
+django-cors-headers==4.9.0
+
+# HTTP Client para comunicación con otros servicios
+httpx==0.24.1
+
+# Base de datos
+psycopg2-binary==2.9.12
+
+# Testing
+pytest==7.4.3
+pytest-django==4.7.0
+
+# ========== CELERY + REDIS - Tareas Asincrónicas ==========
+# Celery: Cola de tareas distribuidas para procesos asincróicos
+celery==5.3.4
+
+# Redis: Broker de mensajes y almacenamiento en caché para Celery
+redis==5.0.1
+
+# Timezone support para Celery
+pytz==2024.1
+
+# Email backend mejorado (opcional, para envío de correos)
+django-celery-email==3.0.1
+
+# Django Celery Beat para tareas programadas (cron-like)
+django-celery-beat==2.5.0
+
+# Django Celery Results para almacenar resultados en BD/Redis
+django-celery-results==2.5.1
