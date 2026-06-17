@@ -22,9 +22,11 @@ Gestión de mascotas perdidas y encontradas, construida con arquitectura de micr
 ```
 Frontend
     └── BFF (puerto 8003)
-            ├── auth_serv     (puerto 8001) → Login y validación JWT
-            ├── usuarios_serv (puerto 8000) → Usuarios, perfiles, preferencias
-            └── mascotas_serv (puerto 8002) → Reportes y contactos
+            ├── auth_sys     (puerto 8001) → Login y validación JWT
+            ├── usuarios_sys (puerto 8000) → Usuarios, perfiles, preferencias
+            ├── mascotas_sys (puerto 8002) → Reportes y contactos
+            ├── noticias_sys (puerto 8004) → Noticias de usuarios y entidades
+            └── notificaciones_sys (puerto 8005) → Notificaciones de coincidencias e otros
 ```
 
 El frontend no habla directamente con los microservicios — todo pasa por el **BFF** como punto de entrada 
@@ -35,10 +37,12 @@ El frontend no habla directamente con los microservicios — todo pasa por el **
 
 | Servicio | Puerto | Descripción |
 |---|---|---|
-| `usuarios_serv` | 8000 | Gestión de usuarios, perfiles de entidades y preferencias |
-| `auth_serv` | 8001 | Autenticación y generación/validación de tokens JWT |
-| `mascotas_serv` | 8002 | Reportes de mascotas perdidas/encontradas y contactos |
-| `bff_serv` | 8003 | Punto de entrada único que proxifica al frontend |
+| `usuarios_sys` | 8000 | Gestión de usuarios, perfiles de entidades y preferencias |
+| `auth_sys` | 8001 | Autenticación y generación/validación de tokens JWT |
+| `mascotas_sys` | 8002 | Reportes de mascotas perdidas/encontradas y contactos |
+| `bff_sys` | 8003 | Punto de entrada único que proxifica al frontend |
+| `noticias_sys` | 8004 | Publicacion de Noticias |
+| `notificaciones_sys` | 8005 | Alertas / Notificaciones |
 
 ---
 
@@ -86,22 +90,32 @@ Cada microservicio se levanta de forma independiente en su propio puerto:
 
 ```bash
 # Terminal 1 - Usuarios
-cd usuarios_serv
+cd usuarios_sys
 python manage.py migrate
 python manage.py runserver 8000
 
 # Terminal 2 - Auth
-cd auth_serv
+cd auth_sys
 python manage.py migrate
 python manage.py runserver 8001
 
 # Terminal 3 - Mascotas
-cd mascotas_serv
+cd mascotas_sys
 python manage.py migrate
 python manage.py runserver 8002
 
 # Terminal 4 - BFF
-cd bff_serv
+cd bff_sys
+python manage.py migrate
+python manage.py runserver 8003
+
+# Terminal 5 - Noticias
+cd noticias_sys
+python manage.py migrate
+python manage.py runserver 8003
+
+# Terminal 6 - Notificaciones
+cd notificaciones_sys
 python manage.py migrate
 python manage.py runserver 8003
 ```
@@ -114,10 +128,12 @@ Desde la raíz del proyecto, con el entorno virtual activado:
 
 ```bash
 # Todos los tests
-cd usuarios_serv && python manage.py test
-cd auth_serv && python manage.py test
-cd mascotas_serv && python manage.py test
-cd bff_serv && python manage.py test
+cd usuarios_sys && python manage.py test
+cd auth_sys && python manage.py test
+cd mascotas_sys && python manage.py test
+cd bff_sys && python manage.py test
+cd noticias_sys && python manage.py test
+cd notificaciones_sys python manage.py test
 ```
 
 O usando el script incluido:
