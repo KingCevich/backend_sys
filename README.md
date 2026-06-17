@@ -13,6 +13,8 @@ Gestión de mascotas perdidas y encontradas, construida con arquitectura de micr
 - Mascotas: https://github.com/KingCevich/Mascotas_SYS.git
 - Usuarios: https://github.com/KingCevich/Usuarios_SYS.git
 - Auth: https://github.com/KingCevich/Auth_SYS
+- Noticias: [https://github.com/KingCevich/BFF_SYS.git](https://github.com/KingCevich/Noticias_SYS)
+- Notificaciones: [https://github.com/KingCevich/BFF_SYS.git](https://github.com/KingCevich/Notifiaciones_SYS)
 - BFF: https://github.com/KingCevich/BFF_SYS.git
 
 ## Arquitectura
