@@ -48,13 +48,19 @@
 #   - usuarios_serv (puerto 8000) - usuarios, perfiles, preferencias
 #   - mascotas_serv (puerto 8002) - reportes y contactos
 
+# Noticias_serv - Servicio de Noticias 
+# ============================================================================
+# Este servicio maneja noticias relacionadas con mascotas (artículos, consejos, eventos)
+# Puerto: 8004
+# Requiere de Usuarios/entidades registrados para acceder a ciertos endpoints (ej: crear noticias, etc )
+
 
 # ============================================================================
 # NOTIFICACIONES_SERV - Servicio de Notificaciones Asincrónicas
 # ============================================================================
 # Este servicio maneja notificaciones por correo, SMS y push
 # Utiliza Celery para tareas asincrónicas + Redis como broker
-# Puerto: 8004
+# Puerto: 8005
 
 # Framework principal. Sobre el corren todos los microservicios.
 Django==6.0.4
