@@ -11,39 +11,6 @@
 # pip install -r requirements.txt o python -m pip install -r requirements.txt
 
 
-# ============================================================================
-# DEPENDENCIAS COMPARTIDAS - TODOS LOS MICROSERVICIOS
-# ============================================================================
-
-# Framework principal de todos los servicios backend
-Django==6.0.4
-djangorestframework==3.17.1
-djangorestframework-simplejwt==5.5.1
-
-# CORS para comunicación entre servicios y frontend
-django-cors-headers==4.9.0
-
-# Base de datos - PostgreSQL para producción
-psycopg2-binary==2.9.12
-
-# ============================================================================
-# HTTP CLIENT - Para comunicación entre microservicios
-# ============================================================================
-# Utilizado en: auth_serv, mascotas_serv, bff_serv
-httpx==0.24.1
-
-# ============================================================================
-# TESTING - Para ejecución de pruebas unitarias
-# ============================================================================
-# Utilizado en: ALL (usuarios_serv, auth_serv, mascotas_serv, bff_serv)
-pytest==7.4.3
-pytest-django==4.7.0
-
-# ============================================================================
-# FUTURO - Pueden ser utilizadas en nuevos servicios o características
-# ============================================================================
-# Fastapi==0.135.3  # Opcional para APIs alternativas
-
 
 
 
@@ -53,22 +20,6 @@ pytest-django==4.7.0
 # Este servicio maneja toda la información de usuarios del sistema
 # Puerto: 8000
 
-# Framework Django y REST
-Django==6.0.4
-djangorestframework==3.17.1
-djangorestframework-simplejwt==5.5.1
-
-# CORS para comunicación con otros servicios y frontend
-django-cors-headers==4.9.0
-
-# Base de datos
-psycopg2-binary==2.9.12
-
-# Testing
-pytest==7.4.3
-pytest-django==4.7.0
-
-
 
 # ============================================================================
 # AUTH_SERV - Servicio de Autenticación y Validación de Tokens JWT
@@ -76,26 +27,6 @@ pytest-django==4.7.0
 # Este servicio maneja login, tokens JWT y validación de credenciales
 # Puerto: 8001
 # Endpoints: POST /api/auth/login-token/, POST /api/auth/validate-token/
-
-# Framework Django y REST
-Django==6.0.4
-djangorestframework==3.17.1
-djangorestframework-simplejwt==5.5.1
-
-# CORS para comunicación con otros servicios y frontend
-django-cors-headers==4.9.0
-
-# HTTP Client para comunicación con usuarios_serv
-httpx==0.24.1
-
-# Base de datos
-psycopg2-binary==2.9.12
-
-# Testing
-pytest==7.4.3
-pytest-django==4.7.0
-
-
 
 
 # ============================================================================
@@ -105,24 +36,6 @@ pytest-django==4.7.0
 # Puerto: 8002
 # Endpoints: /api/reportes/, /api/contactos/
 # Requiere validación de tokens JWT y role Admin para modificaciones
-
-# Framework Django y REST
-Django==6.0.4
-djangorestframework==3.17.1
-djangorestframework-simplejwt==5.5.1
-
-# CORS para comunicación con otros servicios y frontend
-django-cors-headers==4.9.0
-
-# HTTP Client para validación de tokens con auth_serv
-httpx==0.24.1
-
-# Base de datos
-psycopg2-binary==2.9.12
-
-# Testing
-pytest==7.4.3
-pytest-django==4.7.0
 
 
 # BFF_SERV - Backend For Frontend (Capa Proxy/Agregador)
@@ -135,24 +48,6 @@ pytest-django==4.7.0
 #   - usuarios_serv (puerto 8000) - usuarios, perfiles, preferencias
 #   - mascotas_serv (puerto 8002) - reportes y contactos
 
-# Framework Django y REST
-Django==6.0.4
-djangorestframework==3.17.1
-djangorestframework-simplejwt==5.5.1
-
-# CORS para comunicación con el frontend
-django-cors-headers==4.9.0
-
-# HTTP Client CRÍTICO para proxificar requests a todos los backend
-httpx==0.24.1
-
-# Base de datos (mínima, principalmente para logs/sessiones)
-psycopg2-binary==2.9.12
-
-# Testing
-pytest==7.4.3
-pytest-django==4.7.0
-
 
 # ============================================================================
 # NOTIFICACIONES_SERV - Servicio de Notificaciones Asincrónicas
@@ -161,31 +56,52 @@ pytest-django==4.7.0
 # Utiliza Celery para tareas asincrónicas + Redis como broker
 # Puerto: 8004
 
-# Framework Django y REST
+# Framework principal. Sobre el corren todos los microservicios.
 Django==6.0.4
+    
+# Extensión de Django para construir APIs REST (ViewSets, Serializers, Response, status codes). Usado en todos los microservicios.
 djangorestframework==3.17.1
-djangorestframework-simplejwt==5.5.1
 
-# CORS para comunicación con otros servicios y frontend
+# Generación y validación de tokens JWT para el login y la autenticación entre microservicios (auth_serv).
+djangorestframework_simplejwt==5.5.1
+
+#Permite que el frontend (corriendo en otro puerto, localhost:5173) pueda hacer peticiones a los microservicios sin ser bloqueado por la politica de CORS del navegador.
 django-cors-headers==4.9.0
 
-# HTTP Client para comunicación con otros servicios
+# Cliente HTTP asíncrono, más moderno y eficiente que requests. Usado en el BFF para proxificar peticiones a los microservicios backend.
 httpx==0.24.1
 
-# Base de datos
+# Framework alternativo para crear APIs rápidas con tipado (similar a FastAPI pero integrado a Django). Usado en partes puntuales del proyecto.
+django-ninja==1.6.2
+    
+# Driver de conexión entre Django y PostgreSQL. Sin esto Django no puede hablar con la base de datos.
 psycopg2-binary==2.9.12
 
-# Testing
-pytest==7.4.3
-pytest-django==4.7.0
+# Framework alternativo de testing, más flexible que el runner nativo de Django.
+pytest==9.0.3
 
-# ========== CELERY + REDIS - Tareas Asincrónicas ==========
-# Celery: Cola de tareas distribuidas para procesos asincróicos
-celery==5.3.4
+# Plugin que integra pytest con Django (fixtures de base de datos, settings, etc.)
+pytest-django==4.12.0
 
-# Redis: Broker de mensajes y almacenamiento en caché para Celery
-redis==5.0.1
+# Librería para hacer peticiones HTTP entre microservicios (ej: mascotas_serv llamando a notificaciones_serv, o el BFF redirigiendo peticiones a los demás servicios).
+requests==2.33.1
 
+# Framework usado para el microservicio de IA (puerto 8006) que analiza las fotos de mascotas con TensorFlow/MobileNetV2.
+fastapi==0.135.3
+
+# Sistema de colas de tareas asíncronas. Usado en mascotas_serv para procesar el análisis de IA en segundo plano sin bloquear la respuesta HTTP al crear un reporte.
+celery==5.6.3
+
+# Cliente Python para Redis. Redis actúa como "broker" (intermediario) entre mascotas_serv y el worker de Celery — ahí se guardan las tareas pendientes de procesar.
+redis==8.0.0
+    
+# Servidor ASGI que ejecuta la aplicación FastAPI del microservicio de IA.
+uvicorn==0.44.0
+    
+# Herramienta para medir el porcentaje de cobertura de los tests (cuántas líneas de código fueron ejecutadas durante las pruebas).
+coverage==7.14.1
+
+#=================================================================
 # Timezone support para Celery
 pytz==2024.1
 
