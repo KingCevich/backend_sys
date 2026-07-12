@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sanos-fastapi-ia
+  namespace: sanosysalvos
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: sanos-fastapi-ia
+  template:
+    metadata:
+      labels:
+        app: sanos-fastapi-ia
+    spec:
+      containers:
+        - name: fastapi-ia
+          image: {{ECR_URL}}/sanos-fastapi-ia:v1
+          ports:
+            - containerPort: 8006
+          resources:
+            requests:
+              cpu: "500m"
+              memory: "1Gi"
+            limits:
+              cpu: "2000m"
+              memory: "2Gi"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: sanos-fastapi-ia
+  namespace: sanosysalvos
+spec:
+  selector:
+    app: sanos-fastapi-ia
+  ports:
+    - port: 8006
+      targetPort: 8006
+  type: ClusterIP

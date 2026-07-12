@@ -1,0 +1,70 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sanos-bff
+  namespace: sanosysalvos
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: sanos-bff
+  template:
+    metadata:
+      labels:
+        app: sanos-bff
+    spec:
+      containers:
+        - name: bff
+          image: {{ECR_URL}}/sanos-bff-serv:v1
+          ports:
+            - containerPort: 8000
+          env:
+            - name: SECRET_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: sanos-secrets
+                  key: SECRET_KEY_BFF
+            - name: DEBUG
+              value: "False"
+            - name: ALLOWED_HOSTS
+              value: "*"
+            - name: CORS_ALLOWED_ORIGINS
+              value: "*"
+            - name: AUTH_SERVICE_URL
+              value: "http://sanos-auth:8000/api/auth/"
+            - name: USERS_SERVICE_URL
+              value: "http://sanos-usuarios:8000/api/usuarios/"
+            - name: PERFILES_SERVICE_URL
+              value: "http://sanos-usuarios:8000/api/perfiles/"
+            - name: PREFERENCIAS_SERVICE_URL
+              value: "http://sanos-usuarios:8000/api/preferencias/"
+            - name: ENTIDADES_SERVICE_URL
+              value: "http://sanos-usuarios:8000/api/entidades/"
+            - name: REPORTES_SERVICE_URL
+              value: "http://sanos-mascotas:8000/api/reportes/"
+            - name: CONTACTOS_SERVICE_URL
+              value: "http://sanos-mascotas:8000/api/contactos/"
+            - name: NOTICIAS_SERVICE_URL
+              value: "http://sanos-noticias:8000/api/noticias/"
+            - name: NOTIFICACIONES_SERVICE_URL
+              value: "http://sanos-notificaciones:8000/api/notificaciones/"
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "256Mi"
+            limits:
+              cpu: "500m"
+              memory: "512Mi"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: sanos-bff
+  namespace: sanosysalvos
+spec:
+  selector:
+    app: sanos-bff
+  ports:
+    - port: 80
+      targetPort: 8000
+  type: LoadBalancer

@@ -1,0 +1,61 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sanos-notificaciones
+  namespace: sanosysalvos
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: sanos-notificaciones
+  template:
+    metadata:
+      labels:
+        app: sanos-notificaciones
+    spec:
+      containers:
+        - name: notificaciones
+          image: {{ECR_URL}}/sanos-notificaciones-serv:v1
+          ports:
+            - containerPort: 8000
+          env:
+            - name: DATABASE_URL
+              value: "postgresql://sanos_admin:$(DB_PASSWORD)@sanos-notificaciones-db.c9oo6visqpir.us-east-1.rds.amazonaws.com:5432/notificaciones_db"
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: sanos-secrets
+                  key: DB_PASSWORD
+            - name: SECRET_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: sanos-secrets
+                  key: SECRET_KEY_NOTIFICACIONES
+            - name: DEBUG
+              value: "False"
+            - name: ALLOWED_HOSTS
+              value: "*"
+            - name: REDIS_URL
+              value: "redis://san-re-41v4ud2cwljl.ruzbk7.0001.use1.cache.amazonaws.com:6379/2"
+            - name: CORS_ALLOWED_ORIGINS
+              value: "*"
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "256Mi"
+            limits:
+              cpu: "500m"
+              memory: "512Mi"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: sanos-notificaciones
+  namespace: sanosysalvos
+spec:
+  selector:
+    app: sanos-notificaciones
+  ports:
+    - port: 8000
+      targetPort: 8000
+  type: ClusterIP

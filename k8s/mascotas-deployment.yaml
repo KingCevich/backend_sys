@@ -1,0 +1,65 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sanos-mascotas
+  namespace: sanosysalvos
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: sanos-mascotas
+  template:
+    metadata:
+      labels:
+        app: sanos-mascotas
+    spec:
+      containers:
+        - name: mascotas
+          image: {{ECR_URL}}/sanos-mascotas-serv:v1
+          ports:
+            - containerPort: 8000
+          env:
+            - name: DATABASE_URL
+              value: "postgresql://sanos_admin:$(DB_PASSWORD)@sanos-mascotas-db.c9oo6visqpir.us-east-1.rds.amazonaws.com:5432/mascotas_db"
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: sanos-secrets
+                  key: DB_PASSWORD
+            - name: SECRET_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: sanos-secrets
+                  key: SECRET_KEY_MASCOTAS
+            - name: DEBUG
+              value: "False"
+            - name: ALLOWED_HOSTS
+              value: "*"
+            - name: REDIS_URL
+              value: "redis://san-re-41v4ud2cwljl.ruzbk7.0001.use1.cache.amazonaws.com:6379/0"
+            - name: AUTH_SERVICE_URL
+              value: "http://sanos-auth:8000/api/auth/"
+            - name: NOTIFICACIONES_SERVICE_URL
+              value: "http://sanos-notificaciones:8000"
+            - name: AI_SERVICE_URL
+              value: "http://sanos-fastapi-ia:8006"
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "256Mi"
+            limits:
+              cpu: "500m"
+              memory: "512Mi"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: sanos-mascotas
+  namespace: sanosysalvos
+spec:
+  selector:
+    app: sanos-mascotas
+  ports:
+    - port: 8000
+      targetPort: 8000
+  type: ClusterIP

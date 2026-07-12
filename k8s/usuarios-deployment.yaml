@@ -1,0 +1,57 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sanos-usuarios
+  namespace: sanosysalvos
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: sanos-usuarios
+  template:
+    metadata:
+      labels:
+        app: sanos-usuarios
+    spec:
+      containers:
+        - name: usuarios
+          image: {{ECR_URL}}/sanos-usuarios-serv:v1
+          ports:
+            - containerPort: 8000
+          env:
+            - name: DATABASE_URL
+              value: "postgresql://sanos_admin:$(DB_PASSWORD)@sanos-usuarios-db.c9oo6visqpir.us-east-1.rds.amazonaws.com:5432/user_db"
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: sanos-secrets
+                  key: DB_PASSWORD
+            - name: SECRET_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: sanos-secrets
+                  key: SECRET_KEY_USUARIOS
+            - name: DEBUG
+              value: "False"
+            - name: ALLOWED_HOSTS
+              value: "*"
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "256Mi"
+            limits:
+              cpu: "500m"
+              memory: "512Mi"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: sanos-usuarios
+  namespace: sanosysalvos
+spec:
+  selector:
+    app: sanos-usuarios
+  ports:
+    - port: 8000
+      targetPort: 8000
+  type: ClusterIP
