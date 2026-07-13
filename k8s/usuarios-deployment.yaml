@@ -15,17 +15,15 @@ spec:
     spec:
       containers:
         - name: usuarios
-          image: 053760945279.dkr.ecr.us-east-1.amazonaws.com/sanos-usuarios-serv:v1
+          image: 053760945279.dkr.ecr.us-east-1.amazonaws.com/sanos-usuarios-serv:v2
           ports:
             - containerPort: 8000
           env:
             - name: DATABASE_URL
-              value: "postgresql://sanos_admin:$(DB_PASSWORD)@sanos-usuarios-db.c9oo6visqpir.us-east-1.rds.amazonaws.com:5432/user_db"
-            - name: DB_PASSWORD
               valueFrom:
                 secretKeyRef:
                   name: sanos-secrets
-                  key: DB_PASSWORD
+                  key: DATABASE_URL_USUARIOS
             - name: SECRET_KEY
               valueFrom:
                 secretKeyRef:
