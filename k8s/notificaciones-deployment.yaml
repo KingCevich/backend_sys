@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: notificaciones
-          image: {{ECR_URL}}/sanos-notificaciones-serv:v1
+          image: 053760945279.dkr.ecr.us-east-1.amazonaws.com/sanos-notificaciones-serv:v1
           ports:
             - containerPort: 8000
           env:

@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: fastapi-ia
-          image: {{ECR_URL}}/sanos-fastapi-ia:v1
+          image: 053760945279.dkr.ecr.us-east-1.amazonaws.com/sanos-fastapi-ia:v1
           ports:
             - containerPort: 8006
           resources:

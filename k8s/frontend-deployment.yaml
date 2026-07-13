@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: frontend
-          image: {{ECR_URL}}/sanos-frontend:v1
+          image: 053760945279.dkr.ecr.us-east-1.amazonaws.com/sanos-frontend:v4
           ports:
             - containerPort: 80
           resources:

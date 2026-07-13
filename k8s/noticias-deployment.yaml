@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: noticias
-          image: {{ECR_URL}}/sanos-noticias-serv:v1
+          image: 053760945279.dkr.ecr.us-east-1.amazonaws.com/sanos-noticias-serv:v1
           ports:
             - containerPort: 8000
           env:

@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: bff
-          image: {{ECR_URL}}/sanos-bff-serv:v1
+          image: 053760945279.dkr.ecr.us-east-1.amazonaws.com/sanos-bff-serv:v3
           ports:
             - containerPort: 8000
           env:
@@ -29,7 +29,10 @@ spec:
             - name: ALLOWED_HOSTS
               value: "*"
             - name: CORS_ALLOWED_ORIGINS
-              value: "*"
+              valueFrom:
+                secretKeyRef:
+                  name: sanos-secrets
+                  key: CORS_ALLOWED_ORIGINS
             - name: AUTH_SERVICE_URL
               value: "http://sanos-auth:8000/api/auth/"
             - name: USERS_SERVICE_URL

@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: usuarios
-          image: {{ECR_URL}}/sanos-usuarios-serv:v1
+          image: 053760945279.dkr.ecr.us-east-1.amazonaws.com/sanos-usuarios-serv:v1
           ports:
             - containerPort: 8000
           env:
